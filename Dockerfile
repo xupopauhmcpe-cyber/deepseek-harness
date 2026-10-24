@@ -1,4 +1,4 @@
-FROM node:22-slim
+FROM node:20-slim
 
 RUN apt-get update && apt-get install -y \
     git \
@@ -21,7 +21,7 @@ RUN pnpm install --ignore-scripts
 
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-RUN pnpm run build
+RUN pnpm run build:web
 
 EXPOSE 3080
 

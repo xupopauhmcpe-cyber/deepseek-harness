@@ -17,10 +17,11 @@ COPY . .
 RUN if [ -d "plugins/harness-lark" ]; then rm -rf plugins/harness-lark; fi
 RUN sed -i '/harness-lark/d' package.json || true
 
-RUN pnpm install --ignore-scripts
-
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
+RUN pnpm install
+
+RUN pnpm run prepare:primary-runtime || true
 RUN pnpm run build:web
 
 EXPOSE 3080

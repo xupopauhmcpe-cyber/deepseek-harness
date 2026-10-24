@@ -1,4 +1,4 @@
-FROM node:24-slim
+FROM node:22-slim
 
 RUN apt-get update && apt-get install -y \
     git \
@@ -18,6 +18,8 @@ RUN if [ -d "plugins/harness-lark" ]; then rm -rf plugins/harness-lark; fi
 RUN sed -i '/harness-lark/d' package.json || true
 
 RUN pnpm install --ignore-scripts
+
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 RUN pnpm run build
 
